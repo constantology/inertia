@@ -173,13 +173,11 @@ StaticHandler.prototype = {
 	serve          : function( request, response ) {
 		var urlp = url.parse( request.url );
 
-		return !!this.__files.some( function( file ) {
-			if ( file.test( urlp.path ) )
-				return send( this, urlp, response );
+		return !!this.__directories.some( function( directory ) {
+			return directory.test( urlp.path ) ? send( this, urlp, response ) : false;
 		}, this )
-		|| !!this.__directories.some( function( directory ) {
-			if ( directory.test( urlp.path ) )
-				return send( this, urlp, response );
+		|| !!this.__files.some( function( file ) {
+			return file.test( urlp.path ) ? send( this, urlp, response ) : false;
 		}, this );
 	}
 };

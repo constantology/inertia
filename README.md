@@ -28,8 +28,8 @@ inertia is a VERY simple static file server for nodejs. so simple, it's retarded
    static.useCompression = false|true;                       // turn off/ on compression
 
    static.addFileHandler( /^static\..*\.(gif|jpe?g|png)$/i ) // regexp file handler
-          .addFileHandler( 'foo', 'application/foo' )        // add a custom file type with a custom mime type
-          .addFileHandler( 'html' );                         // add a standard file type, common mime types are handled internally
+         .addFileHandler( 'foo', 'application/foo' )        // add a custom file type with a custom mime type
+         .addFileHandler( 'html' );                         // add a standard file type, common mime types are handled internally
 
    static.addDirHandler( './lib' );                          // serve all files from a specific directory
 
