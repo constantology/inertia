@@ -1,0 +1,17 @@
+{
+	"author"      : {
+		"name"    : "constantology",
+		"email"   : "constantology@gmail.com",
+		"url"     : "http://muigui.com"
+	},
+	"description" : "inertia is a VERY simple static file server for nodejs. so simple, it's retarded.",
+	"keywords"    : ["static", "file", "server"],
+	"licenses"    : ["MIT"],
+	"main"        : "./inertia.js",
+	"name"        : "inertia",
+	"repository"  : {
+		"type"    : "git",
+		"url"     : "git@github.com:constantology/inertia.git"
+	},
+	"version"     : "0.0.1"
+}
