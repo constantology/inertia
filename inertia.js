@@ -5,7 +5,7 @@ var fs          = require( 'fs'     ),
 	util        = require( 'util'   ),
 	zlib        = require( 'zlib'   ),
 
-	mime        = require( './mime' ),
+	mime        = require( 'mime' ),
 	server_info = 'inertia/0.0.1',
 	slice       = Array.prototype.slice;
 
@@ -77,7 +77,7 @@ function prepare( SH, url, response ) {
 			'Server'         : server_info
 		};
 
-	headers['Content-Type'] = mime.types[ext] || 'application/octet-stream';
+	headers['Content-Type'] = mime.lookup( ext );
 
 	if ( stat.isFile() ) o = {
 		ext      : ext,
@@ -99,7 +99,7 @@ function prepare( SH, url, response ) {
 			url      : url.path
 		};
 		o.headers['Content-Length'] = o.file_buf.length;
-		o.headers['Content-Type']   = mime.types.txt;
+		o.headers['Content-Type']   = mime.lookup( 'txt' );
 	}
 
 	typeof SH.__maxAge[ext] != 'number'
@@ -143,8 +143,10 @@ StaticHandler.prototype = {
 	useCompression : true,
 
 	addFileHandler : function( ext, type ) {
-		if ( typeof type == 'string' && typeof ext == 'string' && !( ext in mime.types ) )
-			mime.types[ext] = type.toLowerCase();
+		if ( typeof type == 'string' && typeof ext == 'string' && !( ext in mime.types ) ) {
+			var nm = {};
+			mime.define( ( nm[type.toLowerCase()] = ext ) );
+		}
 
 		this.__files.push( typeof ext == 'string' ? new RegExp( '\\.' + ext + '$', 'i' ) : ext );
 
