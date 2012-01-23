@@ -153,7 +153,11 @@ StaticHandler.prototype = {
 		return this;
 	},
 	addDirHandler  : function( dir ) {
-		this.__directories.push( typeof dir == 'string' ? new RegExp( '\\/' + dir + '|' + dir + '\\/', 'i' ) : dir );
+		var rdir = path.resolve( util.format( '%s/%s', process.cwd(), dir ) );
+
+		path.exists( rdir, function( exists ) {
+			exists ? this.__directories.push( rdir ) : console.log( 'directory: ', dir, ' could not be resolved.' );
+		}.bind( this )  );
 
 		return this;
 	},
@@ -175,8 +179,8 @@ StaticHandler.prototype = {
 	serve          : function( request, response ) {
 		var urlp = url.parse( request.url );
 
-		return !!this.__directories.some( function( directory ) {
-			return directory.test( urlp.path ) ? send( this, urlp, response ) : false;
+		return !!this.__directories.some( function( dir ) {
+			return !!~path.resolve( util.format( '%s/%s', process.cwd(), urlp.path ) ).indexOf( dir ) ? send( this, urlp, response ) : false;
 		}, this )
 		|| !!this.__files.some( function( file ) {
 			return file.test( urlp.path ) ? send( this, urlp, response ) : false;
