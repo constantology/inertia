@@ -6,7 +6,8 @@ var fs          = require( 'fs'     ),
 	zlib        = require( 'zlib'   ),
 
 	mime        = require( 'mime' ),
-	server_info = 'inertia/0.0.1',
+	pkg         = JSON.parse( fs.readFileSync( util.format( '%s/%s', __dirname, 'package.json' ), 'utf-8' ) ),
+	server_info = util.format( '%s/%s', pkg.name, pkg.version ),
 	slice       = Array.prototype.slice;
 
 module.exports = {
@@ -15,7 +16,8 @@ module.exports = {
 		var SH = new StaticHandler;
 		slice.call( arguments ).forEach( SH.addFileHandler, SH );
 		return SH;
-	}
+	},
+	version       : pkg.version
 };
 
 function cache( SH, url, response ) {
