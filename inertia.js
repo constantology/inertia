@@ -71,7 +71,7 @@ function finish( o ) {
 function prepare( SH, url, response ) {
 	var o, p    = path.normalize( process.cwd() + url.path ),
 		ext     = path.extname( p ).substring( 1 ),
-		stat    = fs.statSync( p ),
+		stat    = path.existsSync( p ) ? fs.statSync( p ) : false,
 		headers = {
 			'Content-Length' : stat.size,
 			'Date'           : new Date().toUTCString(),
@@ -81,7 +81,7 @@ function prepare( SH, url, response ) {
 
 	headers['Content-Type'] = mime.lookup( ext );
 
-	if ( stat.isFile() ) o = {
+	if ( stat && stat.isFile() ) o = {
 		ext      : ext,
 		fns      : [],
 		file_buf : fs.readFileSync( p ),
