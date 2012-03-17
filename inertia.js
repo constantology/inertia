@@ -21,9 +21,9 @@ module.exports = {
 };
 
 function cache( SH, url, response ) {
-	SH.__cache[url.path] || ( SH.__cache[url.path] = prepare( SH, url, response ) );
+	SH.__cache[url.pathname] || ( SH.__cache[url.pathname] = prepare( SH, url, response ) );
 
-	return SH.__cache[url.path];
+	return SH.__cache[url.pathname];
 }
 
 function compress( SH, o, response ) {
@@ -69,7 +69,7 @@ function finish( o ) {
 }
 
 function prepare( SH, url, response ) {
-	var o, p    = path.normalize( process.cwd() + url.path ),
+	var o, p    = path.normalize( process.cwd() + url.pathname ),
 		ext     = path.extname( p ).substring( 1 ),
 		stat    = path.existsSync( p ) ? fs.statSync( p ) : false,
 		headers = {
@@ -88,17 +88,17 @@ function prepare( SH, url, response ) {
 		headers  : headers,
 		status   : 200,
 		success  : true,
-		url      : url.path
+		url      : url.pathname
 	};
 	else {
 		o = {
 			ext      : 'txt',
 			fns      : [],
-			file_buf : util.format( '404 %s not found.', url.path ),
+			file_buf : util.format( '404 %s not found.', url.pathname ),
 			headers  : headers,
 			status   : 404,
 			success  : false,
-			url      : url.path
+			url      : url.pathname
 		};
 		o.headers['Content-Length'] = o.file_buf.length;
 		o.headers['Content-Type']   = mime.lookup( 'txt' );
@@ -182,10 +182,10 @@ StaticHandler.prototype = {
 		var urlp = url.parse( request.url );
 
 		return !!this.__directories.some( function( dir ) {
-			return !!~path.resolve( util.format( '%s/%s', process.cwd(), urlp.path ) ).indexOf( dir ) ? send( this, urlp, response ) : false;
+			return !!~path.resolve( util.format( '%s/%s', process.cwd(), urlp.pathname ) ).indexOf( dir ) ? send( this, urlp, response ) : false;
 		}, this )
 		|| !!this.__files.some( function( file ) {
-			return file.test( urlp.path ) ? send( this, urlp, response ) : false;
+			return file.test( urlp.pathname ) ? send( this, urlp, response ) : false;
 		}, this );
 	}
 };
