@@ -1,7 +1,7 @@
 {
 	"author"       : {
 		"name"     : "constantology",
-		"email"    : "constantology@gmail.com",
+		"email"    : "christos@muigui.com",
 		"url"      : "http://muigui.com"
 	},
 	"dependencies" : { "mime": ">= 0.0.1" },

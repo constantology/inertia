@@ -182,10 +182,10 @@ StaticHandler.prototype = {
 		var urlp = url.parse( request.url );
 
 		return !!this.__directories.some( function( dir ) {
-			return !!~path.resolve( util.format( '%s/%s', process.cwd(), urlp.pathname ) ).indexOf( dir ) ? send( this, urlp, response ) : false;
-		}, this )
-		|| !!this.__files.some( function( file ) {
-			return file.test( urlp.pathname ) ? send( this, urlp, response ) : false;
-		}, this );
+					return !!~path.resolve( util.format( '%s/%s', process.cwd(), urlp.pathname ) ).indexOf( dir ) ? send( this, urlp, response ) : false;
+				}, this )
+			|| !!this.__files.some( function( file ) {
+					return file.test( urlp.pathname ) ? send( this, urlp, response ) : false;
+				}, this );
 	}
 };
