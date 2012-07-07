@@ -71,7 +71,7 @@ function finish( o ) {
 function prepare( SH, url, response ) {
 	var o, p    = path.normalize( process.cwd() + url.pathname ),
 		ext     = path.extname( p ).substring( 1 ),
-		stat    = path.existsSync( p ) ? fs.statSync( p ) : false,
+		stat    = fs.existsSync( p ) ? fs.statSync( p ) : false,
 		headers = {
 			'Content-Length' : stat.size,
 			'Date'           : new Date().toUTCString(),
