@@ -71,7 +71,7 @@ function finish( o ) {
 function prepare( SH, url, response ) {
 	var o, p    = path.normalize( process.cwd() + url.pathname ),
 		ext     = path.extname( p ).substring( 1 ),
-		stat    = path.existsSync( p ) ? fs.statSync( p ) : false,
+		stat    = fs.existsSync( p ) ? fs.statSync( p ) : false,
 		headers = {
 			'Content-Length' : stat.size,
 			'Date'           : new Date().toUTCString(),
@@ -157,7 +157,7 @@ StaticHandler.prototype = {
 	addDirHandler  : function( dir ) {
 		var rdir = path.resolve( util.format( '%s/%s', process.cwd(), dir ) );
 
-		path.exists( rdir, function( exists ) {
+		fs.exists( rdir, function( exists ) {
 			exists ? this.__directories.push( rdir ) : console.log( 'directory: ', dir, ' could not be resolved.' );
 		}.bind( this )  );
 
