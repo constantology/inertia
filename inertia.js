@@ -157,7 +157,7 @@ StaticHandler.prototype = {
 	addDirHandler  : function( dir ) {
 		var rdir = path.resolve( util.format( '%s/%s', process.cwd(), dir ) );
 
-		path.exists( rdir, function( exists ) {
+		fs.exists( rdir, function( exists ) {
 			exists ? this.__directories.push( rdir ) : console.log( 'directory: ', dir, ' could not be resolved.' );
 		}.bind( this )  );
 
