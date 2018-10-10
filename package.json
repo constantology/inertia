@@ -5,7 +5,7 @@
 		"url"      : "http://muigui.com"
 	},
 	"dependencies" : { "mime": ">= 0.0.1" },
-	"description"  : "inertia is a VERY simple static file server for nodejs. so simple, it's retarded.",
+	"description"  : "inertia is a VERY simple static file server for nodejs.",
 	"keywords"     : ["static", "file", "server"],
 	"licenses"     : ["MIT"],
 	"main"         : "./inertia.js",
