@@ -1,6 +1,6 @@
 # inertia
 
-inertia is a VERY simple static file server for nodejs. so simple, it's retarded.
+inertia is a VERY simple static file server for nodejs.
 
 ## Installation
 
